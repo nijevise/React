@@ -20,8 +20,8 @@ class App extends Component {
 
 
   handleSwitchViewClick = () => {
-    localStorage.setItem('state', JSON.stringify(!this.state.isListView))
     this.setState((prevState) => {
+      localStorage.setItem('state', JSON.stringify(!prevState.isListView))
       return {
         isListView: !prevState.isListView,
       }
@@ -29,16 +29,16 @@ class App extends Component {
   }
 
   refrashPage = () => {
-    window.location.reload()
-  }
-
-  componentDidMount() {
     fetchUsers()
       .then(result => {
         this.setState({
           users: result
         })
       })
+  }
+
+  componentDidMount() {
+    this.refrashPage()
   }
 
   render() {
