@@ -7,7 +7,7 @@ const HeaderGrid = (props) => {
                 <h2>{props.title}</h2>
             </div>
             <div className="headerIcons">
-                <i className="fa fa-redo"></i>
+                <i onClick={props.reload} className="fa fa-redo"></i>
                 <i onClick={props.switchView} className="fa fa-list"></i>
             </div>
         </header>

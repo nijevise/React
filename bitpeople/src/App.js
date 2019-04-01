@@ -25,6 +25,10 @@ class App extends Component {
     })
   }
 
+  refrashPage = () => {
+    window.location.reload()
+  }
+
   componentDidMount() {
     fetchUsers()
       .then(result => {
@@ -38,7 +42,7 @@ class App extends Component {
     return (
 
       <div className="App">
-        {this.state.isListView ? <Header switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid switchView={this.handleSwitchViewClick} title="BIT People" />}
+        {this.state.isListView ? <Header reload={this.refrashPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refrashPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
         {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
         <Footer title="Copyright &copy;" year="2019" />
       </div>
