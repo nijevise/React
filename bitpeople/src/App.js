@@ -13,15 +13,18 @@ class App extends Component {
 
     this.state = {
       users: [],
-      isListView: true
+      isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state'))
     }
   }
 
 
 
   handleSwitchViewClick = () => {
+    localStorage.setItem('state', JSON.stringify(!this.state.isListView))
     this.setState((prevState) => {
-      return { isListView: !prevState.isListView }
+      return {
+        isListView: !prevState.isListView,
+      }
     })
   }
 
