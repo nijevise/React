@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Header = (props) => {
+const HeaderGrid = (props) => {
     return (
         <header>
             <div className="heading">
@@ -8,10 +8,10 @@ const Header = (props) => {
             </div>
             <div className="headerIcons">
                 <i className="fa fa-redo"></i>
-                <i onClick={props.switchView} className="fa fa-grip-horizontal"></i>
+                <i onClick={props.switchView} className="fa fa-list"></i>
             </div>
         </header>
     )
 }
 
-export default Header
+export default HeaderGrid

@@ -7,7 +7,7 @@ const fetchUsers = () => {
             return response.json()
         }).then(data => {
             const myUsers = data.results.map((user) => {
-                return new User(user.name.first, user.name.last, user.email, user.dob.date, user.picture.thumbnail)
+                return new User(user.name.first, user.name.last, user.email, user.dob.date, user.picture.thumbnail, user.picture.large)
             })
             return myUsers
         }

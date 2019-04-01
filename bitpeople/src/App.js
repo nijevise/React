@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import FetchUsers from './services/UsersService'
+import fetchUsers from './services/UsersService'
 import PostList from './entities/PostList'
 import Header from './entities/Header'
 import Footer from './entities/Footer'
+import PostGrid from './entities/PostGrid'
+import HeaderGrid from './entities/HeaderGrid'
 
 
 class App extends Component {
@@ -10,13 +12,21 @@ class App extends Component {
     super(props)
 
     this.state = {
-      users: []
+      users: [],
+      isListView: true
     }
   }
 
 
+
+  handleSwitchViewClick = () => {
+    this.setState((prevState) => {
+      return { isListView: !prevState.isListView }
+    })
+  }
+
   componentDidMount() {
-    FetchUsers()
+    fetchUsers()
       .then(result => {
         this.setState({
           users: result
@@ -28,8 +38,8 @@ class App extends Component {
     return (
 
       <div className="App">
-        <Header title="BIT People" />
-        <PostList people={this.state.users} />
+        {this.state.isListView ? <Header switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid switchView={this.handleSwitchViewClick} title="BIT People" />}
+        {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
         <Footer title="Copyright &copy;" year="2019" />
       </div>
     );
