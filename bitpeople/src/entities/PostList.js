@@ -5,8 +5,9 @@ const PostList = (props) => {
     return (
         <ul>
             {props.people.map(user => {
+
                 return (
-                    <li>
+                    <li style={{ backgroundColor: user.gender === 'female' ? '#ffebee' : '#fff' }}>
                         <div className="imgBlock">
                             <img src={user.image} />
                         </div>

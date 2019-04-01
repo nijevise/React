@@ -5,7 +5,9 @@ const PostGrid = (props) => {
         <div className="users">
             {props.people.map(user => {
                 return (
-                    <div className="userBlock">
+                    <div
+                        style={{ backgroundColor: user.gender === 'female' ? '#ffebee' : '#fff' }}
+                        className="userBlock">
                         <img src={user.imageLarge} />
                         <div className="name">
                             <p>{user.firstName}</p>
