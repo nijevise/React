@@ -5,7 +5,7 @@ import Header from './entities/Header'
 import Footer from './entities/Footer'
 import PostGrid from './entities/PostGrid'
 import HeaderGrid from './entities/HeaderGrid'
-
+import AnimateSpin from './entities/SpinKit'
 
 
 
@@ -17,7 +17,8 @@ class App extends Component {
       filteredUsers: [],
       users: [],
       isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state')),
-      inputValue: ''
+      inputValue: '',
+      isLoading: true
     }
   }
 
@@ -41,44 +42,42 @@ class App extends Component {
   }
 
   onSearchChangeInput = (e) => {
-    const searchInput = e.target.value
-
-    let filterUsers = null
-
-
-    if (searchInput !== '') {
-      filterUsers = this.state.filteredUsers.filter((user) => {
-        return user.fullName.includes(searchInput)
-      })
-    } else {
-      filterUsers = this.state.users
-    }
-
     this.setState({
-      filteredUsers: filterUsers,
-      inputValue: searchInput
+      filteredUsers: this.state.users.filter(user => (user.fullName.indexOf(e.target.value) !== -1)),
+      inputValue: e.target.value
     })
-
   }
 
   refreshPage = () => {
     fetchUsers()
       .then(result => {
         this.setState({
+          isLoading: false,
           filteredUsers: result,
           users: result
         })
       })
   }
 
+  animationSwitch = () => {
+    if (this.state.isLoading) {
+      return (
+        <AnimateSpin />
+      )
+    } else {
+      return (
+        <input placeholder="Search users" type="search" value={this.state.inputValue} onChange={this.onSearchChangeInput} />
+      )
+    }
+  }
+
+
   render() {
 
     return (
       <div className="App">
         {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
-
-        <input type="text" value={this.state.inputValue} onChange={this.onSearchChangeInput} />
-
+        {this.animationSwitch()}
         {this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />}
         <Footer title="Copyright &copy;" year="2019" />
       </div>
