@@ -15,7 +15,7 @@ class App extends Component {
 
     this.state = {
       filteredUsers: [],
-      users: [],
+
       isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state')),
       inputValue: '',
       isLoading: true
