@@ -42,8 +42,9 @@ class App extends Component {
   }
 
   onSearchChangeInput = (e) => {
+
     this.setState({
-      filteredUsers: this.state.users.filter(user => (user.fullName.indexOf(e.target.value) !== -1)),
+      filteredUsers: this.state.users.filter(user => (user.firstName.includes(e.target.value) || user.lastName.includes(e.target.value))),
       inputValue: e.target.value
     })
   }
