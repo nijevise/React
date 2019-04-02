@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import fetchUsers from './services/UsersService'
-import PostList from './entities/PostList'
-import Header from './entities/Header'
-import Footer from './entities/Footer'
-import PostGrid from './entities/PostGrid'
-import HeaderGrid from './entities/HeaderGrid'
+import fetchUsers from './services/UsersService';
+import PostList from './entities/PostList';
+import Header from './entities/Header';
+import Footer from './entities/Footer';
+import PostGrid from './entities/PostGrid';
+import HeaderGrid from './entities/HeaderGrid';
+import About from './entities/About';
+import { Switch, Route } from 'react-router-dom';
+
 
 
 class App extends Component {
@@ -49,6 +52,10 @@ class App extends Component {
         {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
         <Footer title="Copyright &copy;" year="2019" />
       </div>
+      <Switch>
+        <Route exact path='/about' component={About}/>
+        <Route exact path='/' component={Home}/>
+      </Switch>
     );
   }
 }

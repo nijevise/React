@@ -1,10 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Header = (props) => {
     return (
         <header>
             <div className="heading">
-                <h2>{props.title}</h2>
+            <Link to='/' ><h2>{props.title}</h2> </Link>
+                
             </div>
             <div className="headerIcons">
                 <i onClick={props.reload} className="fa fa-redo"></i>
