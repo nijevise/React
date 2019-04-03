@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AnimateSpin = (props) => {
+const AnimateSpin = () => {
     return (
         <div className="sk-cube-grid">
             <div className="sk-cube sk-cube1"></div>

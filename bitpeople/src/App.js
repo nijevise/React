@@ -8,6 +8,7 @@ import HeaderGrid from './entities/HeaderGrid';
 import About from './entities/About';
 import { HashRouter, Route } from 'react-router-dom';
 import AnimateSpin from './entities/SpinKit'
+import Message from './entities/Message'
 
 class App extends Component {
   constructor(props) {
@@ -18,12 +19,8 @@ class App extends Component {
       users: [],
       isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state')),
       inputValue: '',
-      isLoading: true
+      isLoading: true,
     }
-  }
-
-  componentDidMount() {
-    this.refreshPage()
   }
 
   handleChange = event => {
@@ -43,26 +40,45 @@ class App extends Component {
 
 
   onSearchChangeInput = (e) => {
-    console.log(e.target.value);
     this.setState({
       filteredUsers: this.state.users.filter(user => (user.firstName.includes(e.target.value) || user.lastName.includes(e.target.value))),
       inputValue: e.target.value
     })
   }
 
-
+  componentDidMount() {
+    this.setToLocalStorage()
+    this.setState({
+      isLoading: false
+    })
+  }
 
   refreshPage = () => {
+    let date = new Date()
+    let lastDate = date - JSON.parse(localStorage.getItem('date'))
     fetchUsers()
       .then(result => {
+        localStorage.setItem('users', JSON.stringify(result))
         this.setState({
-          isLoading: false,
+          users: result,
           filteredUsers: result,
-          users: result
+
         })
       })
   }
 
+
+  messageSwitch = () => {
+    if (this.state.filteredUsers.length === 0 && this.state.inputValue !== '') {
+      return (
+        <Message />
+      )
+    } else {
+      return (
+        this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />
+      )
+    }
+  }
 
   animationSwitch = () => {
     if (this.state.isLoading) {
@@ -77,21 +93,37 @@ class App extends Component {
   }
 
 
+  setToLocalStorage = () => {
+    if (localStorage.getItem('users') === null || localStorage.getItem('users') === undefined) {
+      fetchUsers()
+        .then(result => {
+          localStorage.setItem('users', JSON.stringify(result))
+        })
+
+    } else {
+      this.setState({
+        user: JSON.parse(localStorage.getItem('users')),
+        filteredUsers: JSON.parse(localStorage.getItem('users'))
+      })
+    }
+  }
+
+
   render() {
 
     return (
       <HashRouter>
         <div className="App">
-          <Route exact path="/" render={props => (
+          <Route exact path="/" render={() => (
             <React.Fragment>
               {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
               {this.animationSwitch()}
-              {this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />}
+              {this.messageSwitch()}
             </React.Fragment>
           )
           } />
           <Route path="/about" component={About} />
-          <Footer title="Copyright &copy;" year="2019" />
+          <Footer title="Copyright &copy;" year="2019" timeStamp={this.state.timeStamp} />
         </div >
       </HashRouter>
 

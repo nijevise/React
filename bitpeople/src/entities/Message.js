@@ -3,7 +3,7 @@ import React from 'react'
 const Message = () => {
     return (
         <div className="message">
-            <p > <i class="far fa-frown"></i><br />
+            <p > <i className="far fa-frown"></i><br />
                 We could't find any <br />
                 people matching your <br />
                 search</p>
