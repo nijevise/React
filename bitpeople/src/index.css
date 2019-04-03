@@ -23,7 +23,10 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
 
+.aboutDiv header{
+  padding: 0;
 }
 
 header .heading{
@@ -38,6 +41,7 @@ header i{
   display: inline-block;
   font-size: 1.4rem;
   cursor: pointer;
+  align-self: center;
 }
 
 button{
@@ -46,12 +50,35 @@ button{
 
 .headerIcons {
   align-self: center;
+  display: flex;
 }
 
-h1{
-  margin-top: 30px;
-  margin-left: 200px;
-  border-bottom: 1px solid rgba(0, 0, 0, .6);
+header a{
+  display: inline-block;
+  /* margin: 10px auto; */
+  align-self: center;
+}
+
+.aboutText{
+  width: 80%;
+  padding: 20px;
+  margin: 0 auto;
+  height: 90vh;
+}
+
+.aboutText h1{
+  margin: 15px 0;
+}
+
+.aboutText h3{
+  margin: 15px 0;
+}
+
+a{
+  text-decoration: none;
+  color: #fff;
+  margin-right: 100px;
+  font-weight: bold;
 }
 
 ul{
@@ -90,7 +117,7 @@ li i{
 }
 
 footer{
-   background-color: rgb(211, 102, 102);
+  background-color: rgb(211, 102, 102);
   color: white;
   padding: 10px;
   display: flex;
@@ -99,7 +126,7 @@ footer{
 }
 
 .users {
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
   text-align: center;
   padding: 10px 60px;
@@ -131,10 +158,10 @@ input{
 
 .name{
   position: absolute;
-  top: 70%;
+  top: 75%;
   left: 5%;
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 .userBlock p{
   /* padding: 5px; */

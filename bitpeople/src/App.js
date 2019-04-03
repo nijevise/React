@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import fetchUsers from './services/UsersService'
-import PostList from './entities/PostList'
-import Header from './entities/Header'
-import Footer from './entities/Footer'
-import PostGrid from './entities/PostGrid'
-import HeaderGrid from './entities/HeaderGrid'
+import fetchUsers from './services/UsersService';
+import PostList from './entities/PostList';
+import Header from './entities/Header';
+import Footer from './entities/Footer';
+import PostGrid from './entities/PostGrid';
+import HeaderGrid from './entities/HeaderGrid';
+import About from './entities/About';
+import { HashRouter, Route } from 'react-router-dom';
 import AnimateSpin from './entities/SpinKit'
-
-
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +41,7 @@ class App extends Component {
     })
   }
 
+
   onSearchChangeInput = (e) => {
 
     this.setState({
@@ -48,6 +49,8 @@ class App extends Component {
       inputValue: e.target.value
     })
   }
+
+
 
   refreshPage = () => {
     fetchUsers()
@@ -59,6 +62,7 @@ class App extends Component {
         })
       })
   }
+
 
   animationSwitch = () => {
     if (this.state.isLoading) {
@@ -72,16 +76,30 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    this.refreshPage()
+
+  }
+
 
   render() {
 
     return (
-      <div className="App">
-        {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
-        {this.animationSwitch()}
-        {this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />}
-        <Footer title="Copyright &copy;" year="2019" />
-      </div>
+      <HashRouter>
+        <div className="App">
+          <Route exact path="/" render={props => (
+            <React.Fragment>
+              {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
+              {this.animationSwitch()}
+              {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
+            </React.Fragment>
+          )
+          } />
+          <Route path="/about" component={About} />
+          <Footer title="Copyright &copy;" year="2019" />
+        </div >
+      </HashRouter>
+
     );
   }
 }
