@@ -8,6 +8,7 @@ import HeaderGrid from './entities/HeaderGrid';
 import About from './entities/About';
 import { HashRouter, Route } from 'react-router-dom';
 import AnimateSpin from './entities/SpinKit'
+import Message from './entities/Message'
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
 
   componentDidMount() {
     this.refreshPage()
+
   }
 
   handleChange = event => {
@@ -43,11 +45,11 @@ class App extends Component {
 
 
   onSearchChangeInput = (e) => {
-    console.log(e.target.value);
     this.setState({
       filteredUsers: this.state.users.filter(user => (user.firstName.includes(e.target.value) || user.lastName.includes(e.target.value))),
       inputValue: e.target.value
     })
+    console.log(this.state.filteredUsers)
   }
 
 
@@ -63,6 +65,18 @@ class App extends Component {
       })
   }
 
+
+  messageSwitch = () => {
+    if (this.state.filteredUsers.length === 0) {
+      return (
+        <Message />
+      )
+    } else {
+      return (
+        this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />
+      )
+    }
+  }
 
   animationSwitch = () => {
     if (this.state.isLoading) {
@@ -86,7 +100,7 @@ class App extends Component {
             <React.Fragment>
               {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
               {this.animationSwitch()}
-              {this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />}
+              {this.messageSwitch()}
             </React.Fragment>
           )
           } />

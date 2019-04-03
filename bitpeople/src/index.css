@@ -235,3 +235,10 @@ input{
             transform: scale3D(0, 0, 1);
   } 
 }
+
+.message{
+  text-align: center;
+  color: rgba(0, 0, 0, .5);
+  font-size: 3rem;
+  margin: 14.5%;
+}
