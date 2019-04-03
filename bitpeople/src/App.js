@@ -20,6 +20,7 @@ class App extends Component {
       isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state')),
       inputValue: '',
       isLoading: true,
+      timeStamp: null
     }
   }
 
@@ -38,7 +39,6 @@ class App extends Component {
     })
   }
 
-
   onSearchChangeInput = (e) => {
     this.setState({
       filteredUsers: this.state.users.filter(user => (user.firstName.includes(e.target.value) || user.lastName.includes(e.target.value))),
@@ -47,6 +47,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     this.setToLocalStorage()
     this.setState({
       isLoading: false
@@ -54,19 +55,15 @@ class App extends Component {
   }
 
   refreshPage = () => {
-    let date = new Date()
-    let lastDate = date - JSON.parse(localStorage.getItem('date'))
     fetchUsers()
       .then(result => {
         localStorage.setItem('users', JSON.stringify(result))
         this.setState({
           users: result,
-          filteredUsers: result,
-
+          filteredUsers: result
         })
       })
   }
-
 
   messageSwitch = () => {
     if (this.state.filteredUsers.length === 0 && this.state.inputValue !== '') {
@@ -80,6 +77,8 @@ class App extends Component {
     }
   }
 
+
+
   animationSwitch = () => {
     if (this.state.isLoading) {
       return (
@@ -91,7 +90,6 @@ class App extends Component {
       )
     }
   }
-
 
   setToLocalStorage = () => {
     if (localStorage.getItem('users') === null || localStorage.getItem('users') === undefined) {
@@ -108,9 +106,7 @@ class App extends Component {
     }
   }
 
-
   render() {
-
     return (
       <HashRouter>
         <div className="App">
@@ -126,7 +122,6 @@ class App extends Component {
           <Footer title="Copyright &copy;" year="2019" timeStamp={this.state.timeStamp} />
         </div >
       </HashRouter>
-
     );
   }
 }
