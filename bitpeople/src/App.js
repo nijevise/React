@@ -43,7 +43,7 @@ class App extends Component {
 
 
   onSearchChangeInput = (e) => {
-
+    console.log(e.target.value);
     this.setState({
       filteredUsers: this.state.users.filter(user => (user.firstName.includes(e.target.value) || user.lastName.includes(e.target.value))),
       inputValue: e.target.value
@@ -76,11 +76,6 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    this.refreshPage()
-
-  }
-
 
   render() {
 
@@ -91,7 +86,7 @@ class App extends Component {
             <React.Fragment>
               {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
               {this.animationSwitch()}
-              {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
+              {this.state.isListView ? <PostList people={this.state.filteredUsers} isListView={this.state.isListView} /> : <PostGrid people={this.state.filteredUsers} />}
             </React.Fragment>
           )
           } />
