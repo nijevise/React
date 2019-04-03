@@ -20,7 +20,8 @@ class App extends Component {
       isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state')),
       inputValue: '',
       isLoading: true,
-      timeStamp: null
+      timeStamp: null,
+
     }
   }
 
@@ -47,7 +48,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-
     this.setToLocalStorage()
     this.setState({
       isLoading: false
