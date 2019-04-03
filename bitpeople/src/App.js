@@ -6,7 +6,7 @@ import Footer from './entities/Footer';
 import PostGrid from './entities/PostGrid';
 import HeaderGrid from './entities/HeaderGrid';
 import About from './entities/About';
-import { Switch, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 
 
 
@@ -31,7 +31,7 @@ class App extends Component {
     })
   }
 
-  refrashPage = () => {
+  refreshPage = () => {
     fetchUsers()
       .then(result => {
         this.setState({
@@ -41,21 +41,26 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.refrashPage()
+    this.refreshPage()
   }
 
   render() {
     return (
+      <HashRouter>
+        <div className="App">
+          <Route exact path="/" render={props => (
+            <React.Fragment>
+              {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
+              {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
+            </React.Fragment>
+          )
+          } />
+          <Route path="/about" component={About} />
+          <Footer title="Copyright &copy;" year="2019" />
+        </div >
+      </HashRouter>
 
-      <div className="App">
-        {this.state.isListView ? <Header reload={this.refrashPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refrashPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
-        {this.state.isListView ? <PostList people={this.state.users} isListView={this.state.isListView} /> : <PostGrid people={this.state.users} />}
-        <Footer title="Copyright &copy;" year="2019" />
-      </div>
-      <Switch>
-        <Route exact path='/about' component={About}/>
-        <Route exact path='/' component={Home}/>
-      </Switch>
+
     );
   }
 }
