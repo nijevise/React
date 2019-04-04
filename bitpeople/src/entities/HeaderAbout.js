@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 const HeaderAbout = (props) => {
     return (
-        <header>
+        <header className='about'>
 
             <Link to="/"><h2>{props.title}</h2></Link>
 
-        </header>
+        </header >
     )
 }
 

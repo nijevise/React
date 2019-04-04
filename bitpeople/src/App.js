@@ -20,8 +20,7 @@ class App extends Component {
       isListView: localStorage.getItem('state') === null || undefined ? true : JSON.parse(localStorage.getItem('state')),
       inputValue: '',
       isLoading: true,
-      timeStamp: null,
-
+      timeStamp: null
     }
   }
 
@@ -49,9 +48,6 @@ class App extends Component {
 
   componentDidMount() {
     this.setToLocalStorage()
-    this.setState({
-      isLoading: false
-    })
   }
 
   refreshPage = () => {
@@ -60,7 +56,7 @@ class App extends Component {
         localStorage.setItem('users', JSON.stringify(result))
         this.setState({
           users: result,
-          filteredUsers: result
+          filteredUsers: result,
         })
       })
   }

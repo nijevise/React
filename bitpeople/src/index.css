@@ -25,12 +25,17 @@ header {
   justify-content: space-between;
 }
 
-.aboutDiv header{
-  padding: 0;
-}
-
 header .heading{
   margin-left: 780px;
+}
+
+.about header {
+  padding: 10px;
+}
+
+.about a{
+  display: inline-block;
+  margin: 0 auto;
 }
 
 header i:nth-of-type(2){
