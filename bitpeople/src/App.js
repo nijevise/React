@@ -73,20 +73,6 @@ class App extends Component {
     }
   }
 
-
-
-  animationSwitch = () => {
-    if (this.state.isLoading) {
-      return (
-        <AnimateSpin />
-      )
-    } else {
-      return (
-        <input placeholder="Search users" type="search" value={this.state.inputValue} onChange={this.onSearchChangeInput} />
-      )
-    }
-  }
-
   setToLocalStorage = () => {
     if (localStorage.getItem('users') === null || localStorage.getItem('users') === undefined) {
       fetchUsers()
@@ -103,13 +89,14 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <HashRouter>
         <div className="App">
           <Route exact path="/" render={() => (
             <React.Fragment>
               {this.state.isListView ? <Header reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" /> : <HeaderGrid reload={this.refreshPage} switchView={this.handleSwitchViewClick} title="BIT People" />}
-              {this.animationSwitch()}
+              <input placeholder="Search users" type="search" value={this.state.inputValue} onChange={this.onSearchChangeInput} />
               {this.messageSwitch()}
             </React.Fragment>
           )
